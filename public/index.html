@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Keyboard Wars - not even alpha.. lul</title>
+    <style>
+      *,
+      ::after,
+      ::before {
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #212121;
+        color: #fff;
+        font-family: monospace, serif;
+        letter-spacing: 0.05em;
+      }
+
+      @keyframes highlight-me {
+        20% {
+          background: #bdbdbd;
+        }
+        40% {
+          background: #2d2d2d;
+        }
+        60% {
+          background: #bdbdbd;
+        }
+        80% {
+          background: #2d2d2d;
+        }
+        100% {
+          background: #bdbdbd;
+        }
+        /* 100% { width: 0% } */
+      }
+
+      @keyframes yellowfade {
+        from {
+          background: #4fb6ff;
+        }
+        to {
+          background: transparent;
+        }
+      }
+
+      .new-item {
+        animation-name: yellowfade;
+        animation-duration: 0.5s;
+      }
+
+      #TickerTable {
+        border-collapse: collapse; /* Collapse borders */
+        width: 100%; /* Full-width */
+        border: 1px solid #424242; /* Add a grey border */
+        font-size: 18px; /* Increase font-size */
+      }
+
+      #TickerTable th,
+      #TickerTable td {
+        text-align: left; /* Left-align text */
+        padding: 12px; /* Add padding */
+      }
+
+      #TickerTable tr {
+        /* Add a bottom border to all table rows */
+        border-bottom: 1px solid #57a2ff;
+      }
+
+      #TickerTable tr.header {
+        /* Add a grey background color to the table header */
+        background-color: #545454;
+      }
+      #TickerTable tr:hover {
+        /* Add a grey background color to the table on hover */
+        background-color: #424242;
+      }
+    </style>
+
+    <link href="http://fonts.cdnfonts.com/css/ubuntu-mono" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/5358c88414.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"
+      integrity="sha512-MgkNs0gNdrnOM7k+0L+wgiRc5aLgl74sJQKbIWegVIMvVGPc1+gc1L2oK9Wf/D9pq58eqIJAxOonYPVE5UwUFA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="./script.js"></script>
+
+    <!-- <table id="TickerTable">
+      <tbody>
+        <tr class="header">
+          <th style="width: 30%">Difference</th>
+          <th style="width: 35%">Exchange</th>
+          <th style="width: 35%">Exchange</th>
+        </tr>
+        <tr>
+          <td>100% (+$25)</td>
+          <td>Binance $123.00</td>
+          <td>Google $153.00</td>
+        </tr>
+      </tbody>
+    </table> -->
+    <button id="refresh">Refresh</button>
+    <table id="TickerTable" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <th style="width: 30%">Difference</th>
+          <th style="width: 35%">Exchange</th>
+          <th style="width: 35%">Exchange</th>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
