@@ -3,7 +3,7 @@ import fs from 'fs';
 
 let DB = { Pairs: {}, Opportunities: {} };
 
-export function loadDB() {
+export function loadDB(exec) {
     fs.readFile('DB.json', 'utf8', function readFileCallback(err, data) {
       if (err) {
         if (err.code == 'ENOENT') {
@@ -13,17 +13,17 @@ export function loadDB() {
           console.log(err);
         }
 
-        console.log(DB);
-        return DB;       
+        //console.log(DB);
+        //return DB;      
+        exec(DB) 
       } else {
-        DB = JSON.parse(data, reviver); //now it an object
-        console.log(DB);
-        return DB;       
+        console.log("JSON loaded. Returning the object")
+        const loadedDB = JSON.parse(data, reviver); //now it an object
+        //return loadedDB;    
+        exec(loadedDB);   
       }
-    });
-
-    
-  }
+    })
+}
   
 export function saveDB(data) {
     console.log(data)
