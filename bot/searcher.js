@@ -5,9 +5,10 @@ export const Searcher = {
         Searcher.DB = DB;
     },
 
-    updateTrades() {
-        Searcher.DB.Opportunities = {};
-        for (const [pair, exchangeData] of Object.entries(Searcher.DB.Pairs)) {
+    updateTrades(DB) {
+        console.log(DB)
+        
+        for (const [pair, exchangeData] of Object.entries(DB.Pairs)) {
           // Get all pairs
           exchangeData.forEach(function (Exchange1Data, Exchange1Name) {
             //console.log(Exchange1Data, Exchange1Name);
@@ -17,7 +18,7 @@ export const Searcher = {
       
               // Skip if this is our entry
               if (Exchange1Name === Exchange2Name) return;
-              // Searcher.DB.Opportunities.push({
+              // DB.Opportunities.push({
               //   Exchange1: { Exchange1Name, Exchange1Data },
               //   Exchange2: { Exchange2Name, Exchange2Data },
               //   Difference: {
@@ -39,8 +40,8 @@ export const Searcher = {
               const KeyName = result.replace(',', '-');
               //console.log(KeyName);
       
-              if (Searcher.DB.Opportunities[KeyName] != undefined) return;
-              Searcher.DB.Opportunities[KeyName] = {
+              if (DB.Opportunities[KeyName] != undefined) return;
+              DB.Opportunities[KeyName] = {
                 Exchange1: { Exchange1Name, Exchange1Data },
                 Exchange2: { Exchange2Name, Exchange2Data },
                 Difference: {

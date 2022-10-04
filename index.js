@@ -24,19 +24,20 @@ app.get('/', (req, res) => {
 });
 
 // let DB = { Pairs: {}, Opportunities: {} };
-let DB = { Pairs: {}, Opportunities: {} };
+let DB = null;
 
 export function loadDB() {
     fs.readFile('DB.json', 'utf8', function readFileCallback(err, data) {
       if (err) {
         if (err.code == 'ENOENT') {
           console.log('DB.json not detected. Creating.');
-          fs.writeFile('DB.json', JSON.stringify(DB, replacer), 'utf8', function () {}); // write it back
+          fs.writeFile('DB.json', JSON.stringify({ Pairs: {}, Opportunities: {} }, replacer), 'utf8', function () {}); // write it back
         } else {
-          console.log(err);
+          console.log("LoadDB error: ", err);
         }
       } else {
         DB = JSON.parse(data, reviver); //now it an object
+        console.log("Parsed data from JSON")
       }
     });
 
@@ -72,11 +73,14 @@ function reviver(key, value) {
 
 function startServer() {
 
-  //console.log(DB);
+  if (true === true) {
+    //Searcher.Init(DB);
+    Searcher.updateTrades(DB);
+  }
 
   server.listen(8080, () => {
     io.on('connection', (socket) => {
-      console.log("BALLZ: ", DB);
+      //console.log("BALLZ: ", DB);
       // socket.on('login', (data) => {
       //   UserTools.Login(socket, data);
       // });
@@ -116,12 +120,11 @@ function CheckPairForOpprotunities(pairName) {
 }
 
 function ProcessPairResults(pairName, data) {
-  //console.log('PROCESSING: ', data);
   DB.Pairs[pairName] = new Map();
 
   data.result.markets.forEach((entry) => {
-    GetPairPrices(entry.exchange, pairName);
     DB.Pairs[pairName].set(entry.exchange, { Price: -1 });
+    GetPairPrices(entry.exchange, pairName);
   });
 
   saveDB(DB);
@@ -131,8 +134,6 @@ function GetPairPrices(exchangeName, pairName) {
   axios
     .get(`https://api.cryptowat.ch/markets/${exchangeName}/${pairName}/price`)
     .then((res) => {
-      // console.log(`statusCode: ${res.status}`);
-      //console.log('result: ', res.data);
 
       DB.Pairs[pairName].set(exchangeName, { Price: res.data.result.price });
     })
@@ -148,7 +149,7 @@ function getRandomInt(min, max) {
 }
 
 function getOpportunities(stringify = false) {
-  console.log(DB)
+  //console.log(DB)
   if (stringify) {
     return JSON.stringify(DB.Opportunities);
   } else {
@@ -207,7 +208,7 @@ if (CONFIG.SimulatePrices) {
   startServer();
 } else {
   loadDB();
-  
+
   console.log("DB Loaded. ready");
   startServer();  
 }
