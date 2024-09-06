@@ -8,6 +8,8 @@
     "axios": "^0.27.2",
     "express": "^4.18.1",
     "http": "*",
+    "moment": "^2.29.4",
+    "node-binance-us-api": "^0.10.1",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "socket.io": "^4.5.2",

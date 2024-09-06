@@ -9,6 +9,11 @@ import { fileURLToPath } from 'url';
 import { Searcher } from './bot/searcher.js';
 import { saveDB, loadDB } from './bot/DB.js';
 import { Utils } from './utils.js';
+import { get, request } from "./bot/auth.js"
+
+import { GetOrderBook } from './bot/orderbook.js';
+
+import moment from "moment"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -32,96 +37,65 @@ app.get('/', (req, res) => {
 let DB = null;
 
 function startServer(loadedDB) {
-  
   DB = loadedDB;
   //console.log(DB);
+
+  // setInterval(() => {
+  //   Searcher.updateTrades(DB);
+  // }, DB.RefreshRate)
+  // Searcher.updateTrades(DB);
+
+  //Searcher.Test(DB);
+
   
-  Searcher.updateTrades(DB);
+  const offset = 15000;
+  //const newTime = moment().unix()*1000 - offset;
+  const newTime = moment().unix()*1000;
+
+  // axios.get(`https://api.binance.us/api/v3/time`).then(function(response) {
+  //   console.log(response.data.serverTime, newTime, Math.abs(newTime - response.data.serverTime));
+  // }).catch(function(error) {
+  //   // handle error
+  //   console.log(error);
+  // })
+
+  // const data = {symbol: "LTCBTC", "timestamp": newTime};
+
+  // request("/api/v3/openOrders", data, DB.APIPublicKey, DB.APISecretKey).then(result => { 
+  //   console.log(result)
+  // });
+
+  // const data = {symbol: "LTCBTC", "limit": 10};
+
+ 
+
+  // get("/api/v3/depth", data, DB.APIPublicKey, DB.APISecretKey).then(result => { 
+  //   console.log(result)
+  // })
+
+  GetOrderBook("AVAXUSDT", 20)
+
+
+
 
   server.listen(8080, () => {
     io.on('connection', (socket) => {
       //console.log("BALLZ: ", DB);
-     
-      socket.on('Ticker:RequestRefresh', () => {
-        socket.emit('Ticker:UpdatePotentialTrades', getOpportunities(true));
-      });
-  
+
+      // socket.on('Ticker:RequestRefresh', () => {
+      //   socket.emit('Ticker:UpdatePotentialTrades', getOpportunities(true));
+      // });
+
       console.log(
         `New Socket: ${socket.id} auth: ${socket.auth} secure: ${socket.secure}`
       );
-  
-      socket.join('Every1Seconds');
-      socket.emit('Ticker:UpdatePotentialTrades', getOpportunities(true));
+
+      // socket.join('Every1Seconds');
+      // socket.emit('Ticker:UpdatePotentialTrades', getOpportunities(true));
     });
-  
+
     console.log(`Arbys listening on  ${8080}!`);
   });
 }
 
-// function CheckPairForOpprotunities(pairName) {
-//   axios
-//     .get(`https://api.cryptowat.ch/pairs/${pairName}`)
-//     .then((res) => {
-//       // console.log(`statusCode: ${res.status}`);
-//       console.log('result: ', res.data);
-
-//       ProcessPairResults(pairName, res.data);
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-// function ProcessPairResults(pairName, data) {
-//   DB.Pairs[pairName] = new Map();
-
-//   data.result.markets.forEach((entry) => {
-//     DB.Pairs[pairName].set(entry.exchange, { Price: -1 });
-//     GetPairPrices(entry.exchange, pairName);
-//   });
-
-//   saveDB(DB);
-// }
-
-// function GetPairPrices(exchangeName, pairName) {
-//   axios
-//     .get(`https://api.cryptowat.ch/markets/${exchangeName}/${pairName}/price`)
-//     .then((res) => {
-
-//       DB.Pairs[pairName].set(exchangeName, { Price: res.data.result.price });
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-function getOpportunities(stringify = false) {
-  //console.log(DB)
-  if (stringify) {
-    return JSON.stringify(DB.Opportunities);
-  } else {
-    return DB.Opportunities;
-  }
-}
-
-// function simulateShit() {
-//   for (const [pair, exchangeData] of Object.entries(DB.Pairs)) {
-
-//     exchangeData.forEach(function (data, exchangeName) {
-//       const changeChance = 20;
-//       if (Utils.getRandomInt(1, 100) < changeChance) {
-//         const newPrice = data.Price + Utils.getRandomInt(-10, 10);
-//         DB.Pairs[pair].set(exchangeName, {
-//           Price: data.Price + Utils.getRandomInt(-10, 10),
-//         });
-
-//         //console.log(`${pair} on ${exchangeName} updated to $${newPrice}`);
-//       }
-//     });
-//   }
-
-//   Searcher.updateTrades();
-// }
-
-  
 loadDB(startServer);

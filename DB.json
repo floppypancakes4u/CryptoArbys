@@ -1,1 +1,48 @@
-{"Pairs":{"BTCUSDT":{"dataType":"Map","value":[["poloniex",{"Price":19363.08}],["bittrex",{"Price":19379.23530356}],["binance",{"Price":19365.88}],["okx",{"Price":19364.7}],["hitbtc",{"Price":19365.37}],["huobi",{"Price":19366.22}],["wex",{"Price":0}],["bitz",{"Price":64517.84}],["bitfinex",{"Price":19359}],["gateio",{"Price":19365.91}],["binance-us",{"Price":19368.34}],["cexio",{"Price":19412}],["kraken",{"Price":19371.1}],["liquid",{"Price":19392.1}],["okcoin",{"Price":19376.1}],["ftx",{"Price":19363}],["zonda",{"Price":19388.320044}],["ftx-us",{"Price":19360}],["coinbase-pro",{"Price":19367.86}],["bitstamp",{"Price":19364}],["kucoin",{"Price":19365.9}],["bybit",{"Price":19365.74}],["crypto-com",{"Price":-1}]]}},"Opportunities":{}}
+{
+    "Pairs": [
+        [{
+            "Name": "AVAXUSD",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=AVAXUSD",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=AVAXUSD"
+          },
+          {
+            "Name": "AVAXUSDT",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=AVAXUSDT",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=AVAXUSDT"
+          }],
+          [{
+            "Name": "BTCUSD",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=BTCUSD",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=BTCUSD"
+          },
+          {
+            "Name": "BTCUSDT",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=BTCUSDT",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=BTCUSDT"
+          }],
+          [{
+            "Name": "ETHUSD",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=ETHUSD",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=ETHUSD"
+          },
+          {
+            "Name": "ETHUSDT",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=ETHUSDT",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=ETHUSDT"
+          }],
+          [{
+            "Name": "MATICUSD",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=MATICUSD",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=MATICUSD"
+          },
+          {
+            "Name": "MATICUSDT",
+            "bookTicker": "https://api.binance.us/api/v3/ticker/bookTicker?symbol=MATICUSDT",
+            "price": "https://api.binance.us/api/v3/ticker/price?symbol=MATICUSDT"
+          }]
+    ],
+    "RefreshRate": 3000,
+    "RequiredDifference": 0.04,
+    "APIPublicKey": "fhmZUqyliLR1Hny1L1pRsGcQzS6YeJZhYtuTW6IqtuVPHc6Unerf8GH8BlPpauz8",
+    "APISecretKey": "AgFH9vVLXQ27GI4UdkyVnzyyIuukOfkRWsMw9S0V9qA84aT2WORJoOIiZ8PnoCRk"
+}
